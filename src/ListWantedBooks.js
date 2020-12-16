@@ -6,17 +6,39 @@ import { Link } from 'react-router-dom'
 class ListWantedBooks extends Component {
 
     static propTypes = {
+
+        // shelf1: PropTypes.shape({
+        //     'id':PropTypes.array.isRequired,
+        //     'urls': PropTypes.array.isRequired,
+        //     'titles': PropTypes.array.isRequired,
+        //     'authors': PropTypes.array.isRequired
+        // }),
+
         shelf2: PropTypes.shape({
             'id':PropTypes.array.isRequired,
             'urls': PropTypes.array.isRequired,
             'titles': PropTypes.array.isRequired,
             'authors': PropTypes.array.isRequired
+        })
+        //,
+        // shelf3: PropTypes.shape({
+        //     'id':PropTypes.array.isRequired,
+        //     'urls': PropTypes.array.isRequired,
+        //     'titles': PropTypes.array.isRequired,
+        //     'authors': PropTypes.array.isRequired
+        // }),
+        // none: PropTypes.shape({
+        //     'id':PropTypes.array.isRequired,
+        //     'urls': PropTypes.array.isRequired,
+        //     'titles': PropTypes.array.isRequired,
+        //     'authors': PropTypes.array.isRequired
+        // })
 
-
-      })}
+      }
 
     render() {
         const {shelf2} = this.props
+ 
         let prevKey='';
         const titles_length= shelf2.titles.length;
         const authors_length= shelf2.authors.length;

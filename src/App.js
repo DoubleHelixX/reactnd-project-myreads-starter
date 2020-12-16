@@ -15,42 +15,173 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-
-    shelf1: {
-      'id': [1,2],
-      'urls': [
-        "http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api",
-        "http://books.google.com/books/content?id=yDtCuFHXbAYC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72RRiTR6U5OUg3IY_LpHTL2NztVWAuZYNFE8dUuC0VlYabeyegLzpAnDPeWxE6RHi0C2ehrR9Gv20LH2dtjpbcUcs8YnH5VCCAH0Y2ICaKOTvrZTCObQbsfp4UbDqQyGISCZfGN&source=gbs_api"
+  
+      shelf1: {
+        'id': [1,2],
+        'urls': [
+          "http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api",
+          "http://books.google.com/books/content?id=yDtCuFHXbAYC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72RRiTR6U5OUg3IY_LpHTL2NztVWAuZYNFE8dUuC0VlYabeyegLzpAnDPeWxE6RHi0C2ehrR9Gv20LH2dtjpbcUcs8YnH5VCCAH0Y2ICaKOTvrZTCObQbsfp4UbDqQyGISCZfGN&source=gbs_api"
+        ],
+        'titles': ['To Kill a Mockingbird', "Ender's Game"],
+        'authors': ["Harper Lee", "Orson Scott Card"]
+    },
+      shelf2: {
+        'id': [3,4],
+        'urls': [
+          "http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api",
+          "http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api"
       ],
-      'titles': ['To Kill a Mockingbird', "Ender's Game"],
-      'authors': ["Harper Lee", "Orson Scott Card"]
-  },
-    shelf2: {
-      'id': [3,4],
-      'urls': [
-        "http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api",
-        "http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api"
-    ],
-      'titles': ['1776', "Harry Potter and the Sorcerer's Stone"],
-      'authors': ["David McCullough", "J.K. Rowling"]
-  },
-    shelf3: {
-      'id': [4,5,6],
-      'urls': [
-        "http://books.google.com/books/content?id=pD6arNyKyi8C&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE70Rw0CCwNZh0SsYpQTkMbvz23npqWeUoJvVbi_gXla2m2ie_ReMWPl0xoU8Quy9fk0Zhb3szmwe8cTe4k7DAbfQ45FEzr9T7Lk0XhVpEPBvwUAztOBJ6Y0QPZylo4VbB7K5iRSk&source=gbs_api",
-        "http://books.google.com/books/content?id=1q_xAwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE712CA0cBYP8VKbEcIVEuFJRdX1k30rjLM29Y-dw_qU1urEZ2cQ42La3Jkw6KmzMmXIoLTr50SWTpw6VOGq1leINsnTdLc_S5a5sn9Hao2t5YT7Ax1RqtQDiPNHIyXP46Rrw3aL8&source=gbs_api",
-        "http://books.google.com/books/content?id=32haAAAAMAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72yckZ5f5bDFVIf7BGPbjA0KYYtlQ__nWB-hI_YZmZ-fScYwFy4O_fWOcPwf-pgv3pPQNJP_sT5J_xOUciD8WaKmevh1rUR-1jk7g1aCD_KeJaOpjVu0cm_11BBIUXdxbFkVMdi&source=gbs_api"
-    ],
-      'titles': ['The Hobbit', "Oh, the Places You'll Go!", "The Adventures of Tom Sawyer"],
-      'authors': ["J.R.R. Tolkien", "Seuss", "Mark Twain"]
+        'titles': ['1776', "Harry Potter and the Sorcerer's Stone"],
+        'authors': ["David McCullough", "J.K. Rowling"]
+    },
+      shelf3: {
+        'id': [4,5,6],
+        'urls': [
+          "http://books.google.com/books/content?id=pD6arNyKyi8C&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE70Rw0CCwNZh0SsYpQTkMbvz23npqWeUoJvVbi_gXla2m2ie_ReMWPl0xoU8Quy9fk0Zhb3szmwe8cTe4k7DAbfQ45FEzr9T7Lk0XhVpEPBvwUAztOBJ6Y0QPZylo4VbB7K5iRSk&source=gbs_api",
+          "http://books.google.com/books/content?id=1q_xAwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE712CA0cBYP8VKbEcIVEuFJRdX1k30rjLM29Y-dw_qU1urEZ2cQ42La3Jkw6KmzMmXIoLTr50SWTpw6VOGq1leINsnTdLc_S5a5sn9Hao2t5YT7Ax1RqtQDiPNHIyXP46Rrw3aL8&source=gbs_api",
+          "http://books.google.com/books/content?id=32haAAAAMAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72yckZ5f5bDFVIf7BGPbjA0KYYtlQ__nWB-hI_YZmZ-fScYwFy4O_fWOcPwf-pgv3pPQNJP_sT5J_xOUciD8WaKmevh1rUR-1jk7g1aCD_KeJaOpjVu0cm_11BBIUXdxbFkVMdi&source=gbs_api"
+      ],
+        'titles': ['The Hobbit', "Oh, the Places You'll Go!", "The Adventures of Tom Sawyer"],
+        'authors': ["J.R.R. Tolkien", "Seuss", "Mark Twain"]
+    },
+
+      none: {
+        'id': [],
+        'urls': [
+          
+      ],
+        'titles': [],
+        'authors': []
+    }
+
+
   }
+  moveToShelf = (from, fromData, to) => {
+    console.log('hereeee', from, fromData,  to);
+
+    if (from === this.state.shelf1){
+      this.setState((currentState) => ({
+        
+        shelf1 : { 
+          id: currentState.shelf1.id.filter((c) => {
+          return c !== fromData.id;
+          }),
+          urls : currentState.shelf1.urls.filter((c) => {
+            return c !== fromData.url;
+            }),
+          authors : currentState.shelf1.authors.filter((c) => {
+            return c !== fromData.author;
+            }),
+          titles : currentState.shelf1.titles.filter((c) => {
+            return c !== fromData.title;
+            })}
+  
+        }));
+    }
+    // elif (from === this.state.shelf2){
+    //   this.setState((currentState) => ({
+    //     data : { 
+    //       shelf2 : { 
+    //         id: currentState.shelf2.id.filter((c) => {
+    //         return c.id !== fromData.id;
+    //         }),
+    //         urls : currentState.shelf2.urls.filter((c) => {
+    //           return c.urls !== fromData.url;
+    //           }),
+    //         authors : currentState.shelf2.authors.filter((c) => {
+    //           return c.authors !== fromData.author;
+    //           }),
+    //         titles : currentState.shelf2.titles.filter((c) => {
+    //           return c.titles !== fromData.title;
+    //           })
+    //       }}}));}
+
+    // elif (from === this.state.shelf3){
+    //   this.setState((currentState) => ({
+    //     data : { 
+    //       shelf3 : { 
+    //         id: currentState.shelf3.id.filter((c) => {
+    //         return c.id !== fromData.id;
+    //         }),
+    //         urls : currentState.shelf3.urls.filter((c) => {
+    //           return c.urls !== fromData.url;
+    //           }),
+    //         authors : currentState.shelf3.authors.filter((c) => {
+    //           return c.authors !== fromData.author;
+    //           }),
+    //         titles : currentState.shelf3.titles.filter((c) => {
+    //           return c.titles !== fromData.title;
+    //           })
+    //       }}}));}  
+
+    // elif (from === this.state.none){
+    //   this.setState((currentState) => ({
+    //     data : { 
+    //       shelf3 : { 
+    //         id: currentState.none.id.filter((c) => {
+    //         return c.id !== fromData.id;
+    //         }),
+    //         urls : currentState.none.urls.filter((c) => {
+    //           return c.urls !== fromData.url;
+    //           }),
+    //         authors : currentState.none.authors.filter((c) => {
+    //           return c.authors !== fromData.author;
+    //           }),
+    //         titles : currentState.none.titles.filter((c) => {
+    //           return c.titles !== fromData.title;
+    //           })
+    //       }}}));} 
+
+    // if (to === this.state.shelf1){
+    //   this.setState((currentState) => ({
+    //     data : { 
+    //       shelf1 : {
+    //         id: currentState.shelf1.id.concat([fromData.id]),
+    //         urls: currentState.shelf1.urls.concat([fromData.urls]),
+    //         authors: currentState.shelf1.authors.concat([fromData.author]),
+    //         titles: currentState.shelf1.titles.concat([fromData.title])
+    //       }}}));}
+
+    if (to ==="wantToRead"){
+      this.setState((currentState) => ({
+        shelf2 : {
+          id: currentState.shelf2.id.concat([fromData.id]),
+          urls: currentState.shelf2.urls.concat([fromData.url]),
+          authors: currentState.shelf2.authors.concat([fromData.author]),
+          titles: currentState.shelf2.titles.concat([fromData.title])
+          }}));}   
+    // elif (to === this.state.shelf3){
+    //   this.setState((currentState) => ({
+    //     data : { 
+    //       shelf1 : {
+    //         id: currentState.shelf3.id.concat([fromData.id]),
+    //         urls: currentState.shelf3.urls.concat([fromData.urls]),
+    //         authors: currentState.shelf3.authors.concat([fromData.author]),
+    //         titles: currentState.shelf3.titles.concat([fromData.title])
+    //       }}}));}  
+    // elif (to === this.state.none){
+    //   this.setState((currentState) => ({
+    //     data : { 
+    //       none : {
+    //         id: currentState.none.id.concat([fromData.id]),
+    //         urls: currentState.none.urls.concat([fromData.urls]),
+    //         authors: currentState.none.authors.concat([fromData.author]),
+    //         titles: currentState.none.titles.concat([fromData.title])
+    //       }}}));}                                
+
+
   }
 
+
+       
+
+  
 
   
   render() {
     return (
       <div className="app">
+
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
@@ -80,7 +211,7 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
 
-                <ListCurrentBooks shelf1={this.state.shelf1} /> 
+                <ListCurrentBooks shelf1={this.state.shelf1} moveToShelf={this.moveToShelf}/> 
                 <ListWantedBooks shelf2={this.state.shelf2}/>
                 <ListReadableBooks shelf3={this.state.shelf3} />
                
