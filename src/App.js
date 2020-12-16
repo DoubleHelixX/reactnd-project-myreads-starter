@@ -78,96 +78,98 @@ class BooksApp extends React.Component {
   
         }));
     }
-    // elif (from === this.state.shelf2){
-    //   this.setState((currentState) => ({
-    //     data : { 
-    //       shelf2 : { 
-    //         id: currentState.shelf2.id.filter((c) => {
-    //         return c.id !== fromData.id;
-    //         }),
-    //         urls : currentState.shelf2.urls.filter((c) => {
-    //           return c.urls !== fromData.url;
-    //           }),
-    //         authors : currentState.shelf2.authors.filter((c) => {
-    //           return c.authors !== fromData.author;
-    //           }),
-    //         titles : currentState.shelf2.titles.filter((c) => {
-    //           return c.titles !== fromData.title;
-    //           })
-    //       }}}));}
+    else if (from === this.state.shelf2){
+      this.setState((currentState) => ({
+       
+          shelf2 : { 
+            id: currentState.shelf2.id.filter((c) => {
+            return c !== fromData.id;
+            }),
+            urls : currentState.shelf2.urls.filter((c) => {
+              return c !== fromData.url;
+              }),
+            authors : currentState.shelf2.authors.filter((c) => {
+              return c !== fromData.author;
+              }),
+            titles : currentState.shelf2.titles.filter((c) => {
+              return c !== fromData.title;
+              })
+          }}));}
 
-    // elif (from === this.state.shelf3){
-    //   this.setState((currentState) => ({
-    //     data : { 
-    //       shelf3 : { 
-    //         id: currentState.shelf3.id.filter((c) => {
-    //         return c.id !== fromData.id;
-    //         }),
-    //         urls : currentState.shelf3.urls.filter((c) => {
-    //           return c.urls !== fromData.url;
-    //           }),
-    //         authors : currentState.shelf3.authors.filter((c) => {
-    //           return c.authors !== fromData.author;
-    //           }),
-    //         titles : currentState.shelf3.titles.filter((c) => {
-    //           return c.titles !== fromData.title;
-    //           })
-    //       }}}));}  
+    else if (from === this.state.shelf3){
+      this.setState((currentState) => ({
+      
+          shelf3 : { 
+            id: currentState.shelf3.id.filter((c) => {
+            return c !== fromData.id;
+            }),
+            urls : currentState.shelf3.urls.filter((c) => {
+              return c !== fromData.url;
+              }),
+            authors : currentState.shelf3.authors.filter((c) => {
+              return c !== fromData.author;
+              }),
+            titles : currentState.shelf3.titles.filter((c) => {
+              return c !== fromData.title;
+              })
+          }}));}  
 
-    // elif (from === this.state.none){
-    //   this.setState((currentState) => ({
-    //     data : { 
-    //       shelf3 : { 
-    //         id: currentState.none.id.filter((c) => {
-    //         return c.id !== fromData.id;
-    //         }),
-    //         urls : currentState.none.urls.filter((c) => {
-    //           return c.urls !== fromData.url;
-    //           }),
-    //         authors : currentState.none.authors.filter((c) => {
-    //           return c.authors !== fromData.author;
-    //           }),
-    //         titles : currentState.none.titles.filter((c) => {
-    //           return c.titles !== fromData.title;
-    //           })
-    //       }}}));} 
+    else if (from === this.state.none){
+      this.setState((currentState) => ({
+      
+          shelf3 : { 
+            id: currentState.none.id.filter((c) => {
+            return c !== fromData.id;
+            }),
+            urls : currentState.none.urls.filter((c) => {
+              return c !== fromData.url;
+              }),
+            authors : currentState.none.authors.filter((c) => {
+              return c !== fromData.author;
+              }),
+            titles : currentState.none.titles.filter((c) => {
+              return c !== fromData.title;
+              })
+          }}));} 
 
-    // if (to === this.state.shelf1){
-    //   this.setState((currentState) => ({
-    //     data : { 
-    //       shelf1 : {
-    //         id: currentState.shelf1.id.concat([fromData.id]),
-    //         urls: currentState.shelf1.urls.concat([fromData.urls]),
-    //         authors: currentState.shelf1.authors.concat([fromData.author]),
-    //         titles: currentState.shelf1.titles.concat([fromData.title])
-    //       }}}));}
+    if (to === "currentlyReading"){
+      this.setState((currentState) => ({
+      
+          shelf1 : {
+            id: currentState.shelf1.id.concat([fromData.id]),
+            urls: currentState.shelf1.urls.concat([fromData.url]),
+            authors: currentState.shelf1.authors.concat([fromData.author]),
+            titles: currentState.shelf1.titles.concat([fromData.title])
+          }}));}
 
-    if (to ==="wantToRead"){
+    else if (to ==="wantToRead"){
       this.setState((currentState) => ({
         shelf2 : {
           id: currentState.shelf2.id.concat([fromData.id]),
           urls: currentState.shelf2.urls.concat([fromData.url]),
           authors: currentState.shelf2.authors.concat([fromData.author]),
           titles: currentState.shelf2.titles.concat([fromData.title])
-          }}));}   
-    // elif (to === this.state.shelf3){
-    //   this.setState((currentState) => ({
-    //     data : { 
-    //       shelf1 : {
-    //         id: currentState.shelf3.id.concat([fromData.id]),
-    //         urls: currentState.shelf3.urls.concat([fromData.urls]),
-    //         authors: currentState.shelf3.authors.concat([fromData.author]),
-    //         titles: currentState.shelf3.titles.concat([fromData.title])
-    //       }}}));}  
-    // elif (to === this.state.none){
-    //   this.setState((currentState) => ({
-    //     data : { 
-    //       none : {
-    //         id: currentState.none.id.concat([fromData.id]),
-    //         urls: currentState.none.urls.concat([fromData.urls]),
-    //         authors: currentState.none.authors.concat([fromData.author]),
-    //         titles: currentState.none.titles.concat([fromData.title])
-    //       }}}));}                                
+        }}));} 
+            
+    else if (to === "read"){
+      this.setState((currentState) => ({
+      
+          shelf3 : {
+            id: currentState.shelf3.id.concat([fromData.id]),
+            urls: currentState.shelf3.urls.concat([fromData.url]),
+            authors: currentState.shelf3.authors.concat([fromData.author]),
+            titles: currentState.shelf3.titles.concat([fromData.title])
+          }}));}  
+          
+    else if (to === "none"){
+      this.setState((currentState) => ({
+      
+          none : {
+            id: currentState.none.id.concat([fromData.id]),
+            urls: currentState.none.urls.concat([fromData.url]),
+            authors: currentState.none.authors.concat([fromData.author]),
+            titles: currentState.none.titles.concat([fromData.title])
+          }}));}                                
 
 
   }
@@ -212,8 +214,8 @@ class BooksApp extends React.Component {
               <div>
 
                 <ListCurrentBooks shelf1={this.state.shelf1} moveToShelf={this.moveToShelf}/> 
-                <ListWantedBooks shelf2={this.state.shelf2}/>
-                <ListReadableBooks shelf3={this.state.shelf3} />
+                <ListWantedBooks shelf2={this.state.shelf2} moveToShelf={this.moveToShelf}/>
+                <ListReadableBooks shelf3={this.state.shelf3} moveToShelf={this.moveToShelf} />
                
                
               </div>

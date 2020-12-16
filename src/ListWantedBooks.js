@@ -19,8 +19,7 @@ class ListWantedBooks extends Component {
             'urls': PropTypes.array.isRequired,
             'titles': PropTypes.array.isRequired,
             'authors': PropTypes.array.isRequired
-        })
-        //,
+        }),
         // shelf3: PropTypes.shape({
         //     'id':PropTypes.array.isRequired,
         //     'urls': PropTypes.array.isRequired,
@@ -33,11 +32,13 @@ class ListWantedBooks extends Component {
         //     'titles': PropTypes.array.isRequired,
         //     'authors': PropTypes.array.isRequired
         // })
+        moveToShelf: PropTypes.func.isRequired
+
 
       }
 
     render() {
-        const {shelf2} = this.props
+        const {shelf2,moveToShelf} = this.props
  
         let prevKey='';
         const titles_length= shelf2.titles.length;
@@ -72,7 +73,7 @@ class ListWantedBooks extends Component {
                             <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${i<=urls_length-1 ? shelf2.urls[i]: '' })` }}></div>
                             <div className="book-shelf-changer">
-                                <select>
+                                <select defaultValue={'move'} onChange={(event) => moveToShelf(shelf2,{'id': shelf2.id[i], 'url': shelf2.urls[i], 'author': shelf2.authors[i], 'title': shelf2.titles[i]} ,event.target.value)}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
