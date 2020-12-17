@@ -57,8 +57,8 @@ class ListCurrentBooks extends Component {
                 prevKey= key;
         }
         return '';
-    })
-    //moveToShelf(1,2,3);
+    });
+    console.log(shelf1.urls, titles_length, authors_length, urls_length)
         return (
         <div className="bookshelf">
             <h2 className="bookshelf-title">Currently Reading</h2>
