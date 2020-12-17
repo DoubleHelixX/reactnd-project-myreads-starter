@@ -18,68 +18,6 @@ class SearchBooks extends Component {
 
     }
 
-    
-
-    // console.log(booksFound);
-    // findBooks (value) => {
-    //     const {shelf1, shelf2, shelf3, none, moveToShelf} = this.props || {};
-    //     let query=[].concat(shelf1, shelf2, shelf3, none);
-    //     let affectedShelves = [];
-        
-    //     const {booksFound} = this.state || {};
-    //     const totalIds = booksFound.id ? booksFound.urls.length : 0;
-    //     const totalUrls = booksFound.urls ? booksFound.urls.length : 0;
-    //     const totalTitles = booksFound.titles ? booksFound.titles.length: 0;
-    //     const totalAuthors = booksFound.authors ? booksFound.authors.length: 0;
-    //     let matchedSearch = false;
-    
-    //     let bookQue = {
-    //         'id' : [],
-    //         'urls': [],
-    //         'titles': [],
-    //         'authors': []
-    //         };
-    //     let i =0;
-    //     query.filter((book) =>{
-    //         console.log('BOOK', book.titles);
-
-    //         book.titles.map((title, index) => {
-    //             if (title.includes(value)){
-    //                 matchedSearch = true;
-              
-    //                 bookQue.id.push(book.id[index]);
-    //                 bookQue.urls.push(book.urls[index]);
-    //                 bookQue.authors.push(book.authors[index]);
-    //                 bookQue.titles.push(book.titles[index]);
-    //                 affectedShelves.push(book);
-    //             }
-    //         })
-    //         if (!matchedSearch){
-    //             book.authors.map((author, index) => {
-    //                 if (author.includes(value)){
-                        
-    //                     bookQue.id.push(book.id[index]);
-    //                     bookQue.urls.push(book.urls[index]);
-    //                     bookQue.authors.push(book.authors[index]);
-    //                     bookQue.titles.push(book.titles[index]);
-    //                     affectedShelves.push(book);
-
-    //                 }
-    //             })
-    //         }
-    //         console.log(i++);
-    //         matchedSearch=false
-    //     });
-        
-    //     this.setState((currentState) => ({
-    //         booksFound: {
-    //             'id' :  currentState.booksFound.id.splice(0, (totalIds-1)).concat(bookQue.id),
-    //             'urls': currentState.booksFound.urls.splice(0, (totalUrls-1)).concat(bookQue.urls),
-    //             'titles': currentState.booksFound.authors.splice(0, (totalTitles-1)).concat(bookQue.titles),
-    //             'authors': currentState.booksFound.titles.splice(0, (totalAuthors-1)).concat(bookQue.authors)
-    //     }}));
-        
-    // }
 
     render() {
 
@@ -87,14 +25,15 @@ class SearchBooks extends Component {
         let totalUrls = 0;
         let totalTitles = 0;
         let totalAuthors = 0;
+        let empty = Object.keys(booksFound).length === 0 ? true : false;
 
-        if (booksFound){
+        if (!empty){
             totalUrls = booksFound.urls ? booksFound.urls.length-1 : 0;
             totalTitles = booksFound.titles ? booksFound.titles.length-1: 0;
             totalAuthors = booksFound.authors ? booksFound.authors.length-1: 0;
         }
         
-        console.log(booksFound, affectedShelves);
+        console.log('booksFound state passed' , booksFound, 'affected shelves state passed', affectedShelves,  'empty', empty);
 
         return(
             <div className="search-books">
@@ -121,14 +60,16 @@ class SearchBooks extends Component {
                         </div>
                         <div className="search-books-results">
                         <ol className="books-grid">
-                            {booksFound && ( booksFound.id.map((name,i) =>(
-                                <li key ={booksFound.id[i]}>
+                            {!empty && ( booksFound.id.map((value, key)  =>(
+                            
+                                <li key ={booksFound.id[key]}>
+                                    {/* {console.log( 'dict', booksFound.id, 'key', key , 'value', value)} */}
                                 <div className="book">
                                     <div className="book-top">
-                                    <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${i<=totalUrls ? booksFound.urls[i]: '' })` }}>
+                                    <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${key<=totalUrls ? booksFound.urls[key]: '' })` }}>
                                     </div> 
                                     <div className="book-shelf-changer">
-                                        <select defaultValue='currentlyReading' onChange={(event) => moveToShelf(affectedShelves[i],{'id': booksFound.id[i], 'url': booksFound.urls[i], 'author': booksFound.authors[i], 'title': booksFound.titles[i]} ,event.target.value)}>
+                                        <select defaultValue='currentlyReading' onChange={(event) => moveToShelf(affectedShelves[key],{'id': booksFound.id[key], 'url': booksFound.urls[key], 'author': booksFound.authors[key], 'title': booksFound.titles[key]} ,event.target.value)}>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
@@ -137,8 +78,8 @@ class SearchBooks extends Component {
                                         </select>
                                     </div>
                                     </div>
-                                    <div className="book-title">  {i<=totalTitles ? booksFound.titles[i] : ''}   </div>
-                                    <div className="book-authors"> {i<=totalAuthors ? booksFound.authors[i] : ''}  </div>
+                                    <div className="book-title">  {key<=totalTitles ? booksFound.titles[key] : ''}   </div>
+                                    <div className="book-authors"> {key<=totalAuthors ? booksFound.authors[key] : ''}  </div>
                                 </div>
                                 </li>
                             )))}

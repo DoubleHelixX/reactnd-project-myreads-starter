@@ -38,7 +38,7 @@ class BooksApp extends React.Component {
         'authors': ["David McCullough", "J.K. Rowling"]
     },
       shelf3: {
-        'id': [4,5,6],
+        'id': [5,6,7],
         'urls': [
           "http://books.google.com/books/content?id=pD6arNyKyi8C&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE70Rw0CCwNZh0SsYpQTkMbvz23npqWeUoJvVbi_gXla2m2ie_ReMWPl0xoU8Quy9fk0Zhb3szmwe8cTe4k7DAbfQ45FEzr9T7Lk0XhVpEPBvwUAztOBJ6Y0QPZylo4VbB7K5iRSk&source=gbs_api",
           "http://books.google.com/books/content?id=1q_xAwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE712CA0cBYP8VKbEcIVEuFJRdX1k30rjLM29Y-dw_qU1urEZ2cQ42La3Jkw6KmzMmXIoLTr50SWTpw6VOGq1leINsnTdLc_S5a5sn9Hao2t5YT7Ax1RqtQDiPNHIyXP46Rrw3aL8&source=gbs_api",
@@ -188,6 +188,7 @@ class BooksApp extends React.Component {
     const {shelf1, shelf2, shelf3, none} = this.state || {};
     let query=[].concat(shelf1, shelf2, shelf3, none);
     let shelvesList=[]
+    console.log('v', value);
   
   
     
@@ -198,50 +199,61 @@ class BooksApp extends React.Component {
         'titles': [],
         'authors': []
         };
-    let i =0;
-    query.filter((book) =>{
+    if(value){
+      query.filter((book) =>{
 
-        book.titles.map((title, index) => {
-          console.log(value.toLowerCase(), title.toLowerCase().includes(value.toLowerCase()));
-          if (title.toLowerCase().includes(value.toLowerCase())){
-        
+          book.titles.map((title, index) => {
+            if (title.toLowerCase().includes(value.toLowerCase())){
+          
+                bookQue.id.push(book.id[index]);
+                bookQue.urls.push(book.urls[index]);
+                bookQue.authors.push(book.authors[index]);
+                bookQue.titles.push(book.titles[index]);
+                shelvesList.push(book);
+            }
+            else if (book.authors[index].toLowerCase().includes(value.toLowerCase())){
+                      
               bookQue.id.push(book.id[index]);
               bookQue.urls.push(book.urls[index]);
               bookQue.authors.push(book.authors[index]);
               bookQue.titles.push(book.titles[index]);
               shelvesList.push(book);
+
           }
-          else if (book.authors[index].toLowerCase().includes(value.toLowerCase())){
-                    
-            bookQue.id.push(book.id[index]);
-            bookQue.urls.push(book.urls[index]);
-            bookQue.authors.push(book.authors[index]);
-            bookQue.titles.push(book.titles[index]);
-            shelvesList.push(book);
+          });
+          
 
-        }
-        });
-        
-        
-        //console.log(i++);
 
-        console.log([1,2,3].splice(0,-1).concat(8));
+      });
 
-    });
-    console.log('bookQue', bookQue);
+      this.setState((currentState) => ({
+        booksFound: {
+            'id' :  'id' in currentState.booksFound ? currentState.booksFound.id.filter((v,i)=> i>10000).concat(bookQue.id): currentState.booksFound.id.concat(bookQue.id) ,
+            'urls': 'urls' in currentState.booksFound ?  currentState.booksFound.urls.filter((v,i)=> i>10000).concat(bookQue.urls) : currentState.booksFound.urls.concat(bookQue.urls),
+            'titles': 'titles' in currentState.booksFound ?  currentState.booksFound.authors.filter((v,i)=> i>10000).concat(bookQue.titles) : currentState.booksFound.authors.concat(bookQue.titles),
+            'authors': 'authors' in currentState.booksFound ?  currentState.booksFound.titles.filter((v,i)=> i>10000).concat(bookQue.authors) : currentState.booksFound.titles.concat(bookQue.authors)
+        },
+        affectedShelves : currentState.affectedShelves.slice(0, -1).concat(shelvesList)
+          
+      
+      }));
+      console.log('booksFound State 1', this.state.booksFound, 'affected shelves state 1' , this.state.affectedShelves);
+    }
 
-    this.setState((currentState) => ({
-      booksFound: {
-          'id' :  currentState.booksFound ? currentState.booksFound.id.splice(0, -1).concat(bookQue.id): currentState.booksFound.concat(bookQue.id) ,
-          'urls': currentState.booksFound ?  currentState.booksFound.urls.splice(0, -1).concat(bookQue.urls) : currentState.booksFound.concat(bookQue.urls),
-          'titles': currentState.booksFound ?  currentState.booksFound.authors.splice(0, -1).concat(bookQue.titles) : currentState.booksFound.concat(bookQue.titles),
-          'authors': currentState.booksFound ?  currentState.booksFound.titles.splice(0, -1).concat(bookQue.authors) : currentState.booksFound.concat(bookQue.authors)
-      },
-      affectedShelves : currentState.affectedShelves.splice(0, -1).concat(shelvesList)
-        
-    
-    }));
-  
+    else if (!value){
+      this.setState((currentState) => ({
+        booksFound: {
+          'id' : currentState.booksFound.id.filter((v,i)=> i>10000),
+          'urls': currentState.booksFound.urls.filter((v,i)=> i>10000),
+          'titles': currentState.booksFound.titles.filter((v,i)=> i>10000),
+          'authors': currentState.booksFound.authors.filter((v,i)=> i>10000)
+        },
+        affectedShelves : currentState.affectedShelves.filter((v,i)=> i>10000)
+          
+      
+      }));
+      console.log('booksFound State 2', this.state.booksFound, 'affected shelves state 2' , this.state.affectedShelves);
+    }
 }
 
 
@@ -250,7 +262,7 @@ class BooksApp extends React.Component {
       <div className="app">
 
         <Route exact path='/search-books' render={() => (
-          <SearchBooks booksFound={this.booksFound} findBooks= {this.findBooks} moveToShelf={this.moveToShelf} />
+          <SearchBooks booksFound={this.state.booksFound} findBooks= {this.findBooks} moveToShelf={this.moveToShelf} affectedShelves={this.state.affectedShelves} />
           )}/>
 
           <Route exact path='/' render={() => (
