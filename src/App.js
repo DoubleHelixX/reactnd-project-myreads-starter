@@ -4,6 +4,7 @@ import './App.css'
 import ListCurrentBooks from './ListCurrentBooks'
 import ListWantedBooks from './ListWantedBooks'
 import ListReadableBooks from './ListReadableBooks'
+import { Route } from 'react-router-dom'
 
 
 class BooksApp extends React.Component {
@@ -184,7 +185,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
 
-        {this.state.showSearchPage ? (
+        <Route exact path='/search-books' render={() => (
           <div className="search-books">
             <div className="search-books-bar">
               <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
@@ -205,26 +206,27 @@ class BooksApp extends React.Component {
               <ol className="books-grid"></ol>
             </div>
           </div>
-        ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
+          )}/>
 
-                <ListCurrentBooks shelf1={this.state.shelf1} moveToShelf={this.moveToShelf}/> 
-                <ListWantedBooks shelf2={this.state.shelf2} moveToShelf={this.moveToShelf}/>
-                <ListReadableBooks shelf3={this.state.shelf3} moveToShelf={this.moveToShelf} />
-               
-               
+          <Route exact path='/' render={() => (
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
+              <div className="list-books-content">
+                
+                  <div>
+                    <ListCurrentBooks shelf1={this.state.shelf1} moveToShelf={this.moveToShelf}/> 
+                    <ListWantedBooks shelf2={this.state.shelf2} moveToShelf={this.moveToShelf}/>
+                    <ListReadableBooks shelf3={this.state.shelf3} moveToShelf={this.moveToShelf} />
+                  </div>
+                
+              </div>
+              <div className="open-search">
+                <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
               </div>
             </div>
-            <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
-            </div>
-          </div>
-        )}
+            )}/>
       </div>
     )
   }

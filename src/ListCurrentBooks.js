@@ -71,7 +71,7 @@ class ListCurrentBooks extends Component {
                         <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${i<=urls_length-1 ? shelf1.urls[i]: '' })` }}>
                         </div> 
                         <div className="book-shelf-changer">
-                            <select defaultValue={'move'} onChange={(event) => moveToShelf(shelf1,{'id': shelf1.id[i], 'url': shelf1.urls[i], 'author': shelf1.authors[i], 'title': shelf1.titles[i]} ,event.target.value)}>
+                            <select defaultValue='currentlyReading' onChange={(event) => moveToShelf(shelf1,{'id': shelf1.id[i], 'url': shelf1.urls[i], 'author': shelf1.authors[i], 'title': shelf1.titles[i]} ,event.target.value)}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

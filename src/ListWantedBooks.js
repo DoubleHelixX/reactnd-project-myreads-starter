@@ -73,7 +73,7 @@ class ListWantedBooks extends Component {
                             <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${i<=urls_length-1 ? shelf2.urls[i]: '' })` }}></div>
                             <div className="book-shelf-changer">
-                                <select defaultValue={'move'} onChange={(event) => moveToShelf(shelf2,{'id': shelf2.id[i], 'url': shelf2.urls[i], 'author': shelf2.authors[i], 'title': shelf2.titles[i]} ,event.target.value)}>
+                                <select defaultValue='wantToRead' onChange={(event) => moveToShelf(shelf2,{'id': shelf2.id[i], 'url': shelf2.urls[i], 'author': shelf2.authors[i], 'title': shelf2.titles[i]} ,event.target.value)}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
