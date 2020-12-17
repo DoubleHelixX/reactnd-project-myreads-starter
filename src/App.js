@@ -5,7 +5,7 @@ import ListCurrentBooks from './ListCurrentBooks'
 import ListWantedBooks from './ListWantedBooks'
 import ListReadableBooks from './ListReadableBooks'
 import SearchBooks from './SearchBooks'
-
+import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 
 
@@ -200,7 +200,9 @@ class BooksApp extends React.Component {
                 
               </div>
               <div className="open-search">
-                <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+              <Link to='/search-books'className="search"><button>Add a book</button></Link>
+
+                
               </div>
             </div>
             )}/>
