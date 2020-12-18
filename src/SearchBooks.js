@@ -5,37 +5,29 @@ import { Link } from 'react-router-dom'
 
 class SearchBooks extends Component {
     static propTypes = {
-        booksFound: PropTypes.shape({
-            'id':PropTypes.array,
-            'urls': PropTypes.array,
-            'titles': PropTypes.array,
-            'authors': PropTypes.array,
-            'shelves' : PropTypes.array
-        }),   
-        
-        moveToShelf: PropTypes.func.isRequired,
-        findBooks: PropTypes.func.isRequired,
-        affectedShelves : PropTypes.array
+
+        updateShelf: PropTypes.func.isRequired
 
     }
+    
+    state = {
 
+        query:''
+    }
+
+    searchBooks = (query) => {
+        BooksAPI.search(query)
+        .then((books) => {
+          this.setState(() => ({
+            query
+          }))
+        })
+      }
 
     render() {
-
-        const {booksFound, moveToShelf, findBooks, affectedShelves} = this.props;
-        let totalUrls = 0;
-        let totalTitles = 0;
-        let totalAuthors = 0;
-        let empty = Object.keys(booksFound).length === 0 ? true : false;
-
-        if (!empty){
-            totalUrls = booksFound.urls ? booksFound.urls.length-1 : 0;
-            totalTitles = booksFound.titles ? booksFound.titles.length-1: 0;
-            totalAuthors = booksFound.authors ? booksFound.authors.length-1: 0;
-        }
+        const {query} = this.state;
+        const {updateShelf} = this.props;
         
-        console.log('booksFound state passed' , booksFound, 'affected shelves state passed', affectedShelves,  'empty', empty);
-
         return(
             <div className="search-books">
                         <div className="search-books-bar">
@@ -53,7 +45,7 @@ class SearchBooks extends Component {
                             you don't find a specific author or title. Every search is limited by search terms.
                             */}
                             <input type="text" className='search-bar' placeholder="Search by title or author"
-                                onChange={(event) => findBooks(event.target.value)} 
+                                onChange={(event) => this.searchBooks(event.target.value)} 
 
                             />
 
@@ -61,16 +53,16 @@ class SearchBooks extends Component {
                         </div>
                         <div className="search-books-results">
                         <ol className="books-grid">
-                            {!empty && ( booksFound.id.map((value, key)  =>(
+                            {query && ( query.id.map((value, key)  =>(
                             
-                                <li key ={booksFound.id[key]}>
-                                    {/* {console.log( 'dict', booksFound.id, 'key', key , 'value', value)} */}
+                                <li key ={query.id[key]}>
+                                    {/* {console.log( 'dict', query.id, 'key', key , 'value', value)} */}
                                 <div className="book">
                                     <div className="book-top">
-                                    <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${key<=totalUrls ? booksFound.urls[key]: '' })` }}>
+                                    <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${query.urls[key]})` }}>
                                     </div> 
                                     <div className="book-shelf-changer">
-                                        <select defaultValue={booksFound.shelves[key]} onChange={(event) => moveToShelf(affectedShelves[key],{'id': booksFound.id[key], 'url': booksFound.urls[key], 'author': booksFound.authors[key], 'title': booksFound.titles[key] , 'shelf' : event.target.value})}>
+                                        <select defaultValue={query.shelves[key]} onChange={(event) => updateShelf(query[key],event.target.value) }>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>
@@ -79,8 +71,8 @@ class SearchBooks extends Component {
                                         </select>
                                     </div>
                                     </div>
-                                    <div className="book-title">  {key<=totalTitles ? booksFound.titles[key] : ''}   </div>
-                                    <div className="book-authors"> {key<=totalAuthors ? booksFound.authors[key] : ''}  </div>
+                                    <div className="book-title">  {query.titles[key]}   </div>
+                                    <div className="book-authors"> {query.authors[key]}  </div>
                                 </div>
                                 </li>
                             )))}
