@@ -41,8 +41,9 @@ class BooksApp extends React.Component {
       }))
   })
 }
-componentDidUpdate(prevState, prevProps) {
+componentDidUpdate(prevProps,prevState) {
   // Typical usage (don't forget to compare props):
+  console.log('current', this.state.shelves, 'prev', prevState.shelves)
   if (this.state.shelves !== prevState.shelves) {
     BooksAPI.getAll()
     .then((books) => {
@@ -62,8 +63,9 @@ componentDidUpdate(prevState, prevProps) {
       <div className="app">
 
         <Route exact path='/search-books' render={() => (
-          // <SearchBooks booksFound={this.state.booksFound} findBooks= {this.findBooks} moveToShelf={this.moveToShelf} affectedShelves={this.state.affectedShelves} />
-          <h1> hello</h1>
+          <SearchBooks books={this.state.books} updateShelf={(book,shelf) => {
+            this.updateShelf(book,shelf)}}   />
+         
           )}/>
 
           <Route exact path='/' render={({history}) => (
