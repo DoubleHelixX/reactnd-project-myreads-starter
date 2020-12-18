@@ -9,7 +9,8 @@ class SearchBooks extends Component {
             'id':PropTypes.array,
             'urls': PropTypes.array,
             'titles': PropTypes.array,
-            'authors': PropTypes.array
+            'authors': PropTypes.array,
+            'shelves' : PropTypes.array
         }),   
         
         moveToShelf: PropTypes.func.isRequired,
@@ -69,7 +70,7 @@ class SearchBooks extends Component {
                                     <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${key<=totalUrls ? booksFound.urls[key]: '' })` }}>
                                     </div> 
                                     <div className="book-shelf-changer">
-                                        <select defaultValue='currentlyReading' onChange={(event) => moveToShelf(affectedShelves[key],{'id': booksFound.id[key], 'url': booksFound.urls[key], 'author': booksFound.authors[key], 'title': booksFound.titles[key]} ,event.target.value)}>
+                                        <select defaultValue={booksFound.shelves[key]} onChange={(event) => moveToShelf(affectedShelves[key],{'id': booksFound.id[key], 'url': booksFound.urls[key], 'author': booksFound.authors[key], 'title': booksFound.titles[key] , 'shelf' : event.target.value})}>
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>
                                         <option value="wantToRead">Want to Read</option>

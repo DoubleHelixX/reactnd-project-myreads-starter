@@ -10,28 +10,10 @@ class ListCurrentBooks extends Component {
             'id':PropTypes.array.isRequired,
             'urls': PropTypes.array.isRequired,
             'titles': PropTypes.array.isRequired,
-            'authors': PropTypes.array.isRequired
+            'authors': PropTypes.array.isRequired,
+            'shelf' : PropTypes.string.isRequired
+
         }),
-    
-        // shelf2: PropTypes.shape({
-        //     'id':PropTypes.array.isRequired,
-        //     'urls': PropTypes.array.isRequired,
-        //     'titles': PropTypes.array.isRequired,
-        //     'authors': PropTypes.array.isRequired
-        // }),
-        // shelf3: PropTypes.shape({
-        //     'id':PropTypes.array.isRequired,
-        //     'urls': PropTypes.array.isRequired,
-        //     'titles': PropTypes.array.isRequired,
-        //     'authors': PropTypes.array.isRequired
-        // }),
-        // none: PropTypes.shape({
-        //     'id':PropTypes.array.isRequired,
-        //     'urls': PropTypes.array.isRequired,
-        //     'titles': PropTypes.array.isRequired,
-        //     'authors': PropTypes.array.isRequired
-        // }),
-    
     
         moveToShelf: PropTypes.func.isRequired
     }
@@ -51,7 +33,7 @@ class ListCurrentBooks extends Component {
     Object.keys(shelf1).map((key, index)=> {
         if (index <= 0)
             prevKey= key;
-        else 
+        else if (index!==4) 
         {
             if (shelf1[key].length > shelf1[prevKey].length)
                 prevKey= key;
@@ -71,7 +53,7 @@ class ListCurrentBooks extends Component {
                         <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${i<=urls_length-1 ? shelf1.urls[i]: '' })` }}>
                         </div> 
                         <div className="book-shelf-changer">
-                            <select defaultValue='currentlyReading' onChange={(event) => moveToShelf(shelf1,{'id': shelf1.id[i], 'url': shelf1.urls[i], 'author': shelf1.authors[i], 'title': shelf1.titles[i]} ,event.target.value)}>
+                            <select defaultValue={shelf1.shelf} onChange={(event) => moveToShelf(shelf1,{'id': shelf1.id[i], 'url': shelf1.urls[i], 'author': shelf1.authors[i], 'title': shelf1.titles[i], 'shelf':event.target.value} )}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

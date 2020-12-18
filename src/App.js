@@ -26,7 +26,8 @@ class BooksApp extends React.Component {
           "http://books.google.com/books/content?id=yDtCuFHXbAYC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72RRiTR6U5OUg3IY_LpHTL2NztVWAuZYNFE8dUuC0VlYabeyegLzpAnDPeWxE6RHi0C2ehrR9Gv20LH2dtjpbcUcs8YnH5VCCAH0Y2ICaKOTvrZTCObQbsfp4UbDqQyGISCZfGN&source=gbs_api"
         ],
         'titles': ['To Kill a Mockingbird', "Ender's Game"],
-        'authors': ["Harper Lee", "Orson Scott Card"]
+        'authors': ["Harper Lee", "Orson Scott Card"],
+        'shelf' : 'currentlyReading'
     },
       shelf2: {
         'id': [3,4],
@@ -35,7 +36,9 @@ class BooksApp extends React.Component {
           "http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api"
       ],
         'titles': ['1776', "Harry Potter and the Sorcerer's Stone"],
-        'authors': ["David McCullough", "J.K. Rowling"]
+        'authors': ["David McCullough", "J.K. Rowling"],
+        'shelf' : 'wantToRead'
+
     },
       shelf3: {
         'id': [5,6,7],
@@ -45,7 +48,9 @@ class BooksApp extends React.Component {
           "http://books.google.com/books/content?id=32haAAAAMAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72yckZ5f5bDFVIf7BGPbjA0KYYtlQ__nWB-hI_YZmZ-fScYwFy4O_fWOcPwf-pgv3pPQNJP_sT5J_xOUciD8WaKmevh1rUR-1jk7g1aCD_KeJaOpjVu0cm_11BBIUXdxbFkVMdi&source=gbs_api"
       ],
         'titles': ['The Hobbit', "Oh, the Places You'll Go!", "The Adventures of Tom Sawyer"],
-        'authors': ["J.R.R. Tolkien", "Seuss", "Mark Twain"]
+        'authors': ["J.R.R. Tolkien", "Seuss", "Mark Twain"],
+        'shelf' : 'read'
+
     },
 
       none: {
@@ -54,19 +59,24 @@ class BooksApp extends React.Component {
           
       ],
         'titles': [],
-        'authors': []
+        'authors': [],
+        'shelf' : 'none'
+
     },
     booksFound: {
       'id' : [],
       'urls': [],
       'titles': [],
-      'authors': []
+      'authors': [],
+      'shelves' : []
     },
     affectedShelves: []
 
 
   }
-  moveToShelf = (from, fromData, to) => {
+  moveToShelf = (from, fromData) => {
+    const to = fromData.shelf;
+
     console.log('hereeee', from, fromData,  to);
 
     if (from === this.state.shelf1){
@@ -149,7 +159,8 @@ class BooksApp extends React.Component {
             id: currentState.shelf1.id.concat([fromData.id]),
             urls: currentState.shelf1.urls.concat([fromData.url]),
             authors: currentState.shelf1.authors.concat([fromData.author]),
-            titles: currentState.shelf1.titles.concat([fromData.title])
+            titles: currentState.shelf1.titles.concat([fromData.title]),
+            shelf: to.trim()
           }}));}
 
     else if (to ==="wantToRead"){
@@ -158,7 +169,8 @@ class BooksApp extends React.Component {
           id: currentState.shelf2.id.concat([fromData.id]),
           urls: currentState.shelf2.urls.concat([fromData.url]),
           authors: currentState.shelf2.authors.concat([fromData.author]),
-          titles: currentState.shelf2.titles.concat([fromData.title])
+          titles: currentState.shelf2.titles.concat([fromData.title]),
+          shelf: to.trim()
         }}));} 
             
     else if (to === "read"){
@@ -168,7 +180,8 @@ class BooksApp extends React.Component {
             id: currentState.shelf3.id.concat([fromData.id]),
             urls: currentState.shelf3.urls.concat([fromData.url]),
             authors: currentState.shelf3.authors.concat([fromData.author]),
-            titles: currentState.shelf3.titles.concat([fromData.title])
+            titles: currentState.shelf3.titles.concat([fromData.title]),
+            shelf: to.trim()
           }}));}  
           
     else if (to === "none"){
@@ -178,7 +191,8 @@ class BooksApp extends React.Component {
             id: currentState.none.id.concat([fromData.id]),
             urls: currentState.none.urls.concat([fromData.url]),
             authors: currentState.none.authors.concat([fromData.author]),
-            titles: currentState.none.titles.concat([fromData.title])
+            titles: currentState.none.titles.concat([fromData.title]),
+            shelf: to.trim()
           }}));}                                
 
 
@@ -197,7 +211,8 @@ class BooksApp extends React.Component {
         'id' : [],
         'urls': [],
         'titles': [],
-        'authors': []
+        'authors': [],
+        'shelves' : []
         };
     if(value){
       query.filter((book) =>{
@@ -209,6 +224,8 @@ class BooksApp extends React.Component {
                 bookQue.urls.push(book.urls[index]);
                 bookQue.authors.push(book.authors[index]);
                 bookQue.titles.push(book.titles[index]);
+                bookQue.shelves.push(book.shelf);
+
                 shelvesList.push(book);
             }
             else if (book.authors[index].toLowerCase().includes(value.toLowerCase())){
@@ -217,6 +234,7 @@ class BooksApp extends React.Component {
               bookQue.urls.push(book.urls[index]);
               bookQue.authors.push(book.authors[index]);
               bookQue.titles.push(book.titles[index]);
+              bookQue.shelves.push(book.shelf);
               shelvesList.push(book);
 
           }
@@ -231,8 +249,9 @@ class BooksApp extends React.Component {
             'id' :  'id' in currentState.booksFound ? currentState.booksFound.id.filter((v,i)=> i>10000).concat(bookQue.id): currentState.booksFound.id.concat(bookQue.id) ,
             'urls': 'urls' in currentState.booksFound ?  currentState.booksFound.urls.filter((v,i)=> i>10000).concat(bookQue.urls) : currentState.booksFound.urls.concat(bookQue.urls),
             'titles': 'titles' in currentState.booksFound ?  currentState.booksFound.authors.filter((v,i)=> i>10000).concat(bookQue.titles) : currentState.booksFound.authors.concat(bookQue.titles),
-            'authors': 'authors' in currentState.booksFound ?  currentState.booksFound.titles.filter((v,i)=> i>10000).concat(bookQue.authors) : currentState.booksFound.titles.concat(bookQue.authors)
-        },
+            'authors': 'authors' in currentState.booksFound ?  currentState.booksFound.titles.filter((v,i)=> i>10000).concat(bookQue.authors) : currentState.booksFound.titles.concat(bookQue.authors),
+            'shelves' :  'shelves' in currentState.booksFound ? currentState.booksFound.shelves.filter((v,i)=> i>10000).concat(bookQue.shelves) : currentState.booksFound.shelves.concat(bookQue.shelves)
+          },
         affectedShelves : currentState.affectedShelves.slice(0, -1).concat(shelvesList)
           
       
@@ -246,7 +265,8 @@ class BooksApp extends React.Component {
           'id' : currentState.booksFound.id.filter((v,i)=> i>10000),
           'urls': currentState.booksFound.urls.filter((v,i)=> i>10000),
           'titles': currentState.booksFound.titles.filter((v,i)=> i>10000),
-          'authors': currentState.booksFound.authors.filter((v,i)=> i>10000)
+          'authors': currentState.booksFound.authors.filter((v,i)=> i>10000),
+          'shelves': currentState.booksFound.shelves.filter((v,i)=> i>10000)
         },
         affectedShelves : currentState.affectedShelves.filter((v,i)=> i>10000)
           

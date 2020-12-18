@@ -18,7 +18,9 @@ class ListWantedBooks extends Component {
             'id':PropTypes.array.isRequired,
             'urls': PropTypes.array.isRequired,
             'titles': PropTypes.array.isRequired,
-            'authors': PropTypes.array.isRequired
+            'authors': PropTypes.array.isRequired,
+            'shelf' : PropTypes.string.isRequired
+
         }),
         // shelf3: PropTypes.shape({
         //     'id':PropTypes.array.isRequired,
@@ -50,7 +52,7 @@ class ListWantedBooks extends Component {
         let x = Object.keys(shelf2).map((key, index)=> {
             if (index <= 0)
                 prevKey= key;
-            else 
+            else if (index!==4) 
             {
                 if (shelf2[key].length > shelf2[prevKey].length)
                     prevKey= key;
@@ -73,7 +75,7 @@ class ListWantedBooks extends Component {
                             <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${i<=urls_length-1 ? shelf2.urls[i]: '' })` }}></div>
                             <div className="book-shelf-changer">
-                                <select defaultValue='wantToRead' onChange={(event) => moveToShelf(shelf2,{'id': shelf2.id[i], 'url': shelf2.urls[i], 'author': shelf2.authors[i], 'title': shelf2.titles[i]} ,event.target.value)}>
+                                <select defaultValue={shelf2.shelf} onChange={(event) => moveToShelf(shelf2,{'id': shelf2.id[i], 'url': shelf2.urls[i], 'author': shelf2.authors[i], 'title': shelf2.titles[i], 'shelf' : event.target.value} )}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
