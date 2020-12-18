@@ -19,7 +19,7 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     books:[],
-    resolve:[]
+    shelves:{}
 
 
   }
@@ -35,23 +35,28 @@ class BooksApp extends React.Component {
 
   updateShelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
-    .then((resolve) => {
+    .then((shelves) => {
       this.setState(() => ({
-        resolve
+        shelves
       }))
-    }).then(
-      BooksAPI.getAll()
-      .then((books) => {
-        this.setState(() => ({
-          books
-        }))
+  })
+}
+componentDidUpdate(prevState, prevProps) {
+  // Typical usage (don't forget to compare props):
+  if (this.state.shelves !== prevState.shelves) {
+    BooksAPI.getAll()
+    .then((books) => {
+      this.setState(() => ({
+        books
+      }))
     })
-    )
   }
+}
 
+// not working above ??? updateshelf not triggering rerender
 
   render() {
-  console.log('books', this.state.books, 'resolve', this.state.resolve);
+  console.log('books', this.state.books, 'shelves', this.state.shelves);
 
     return (
       <div className="app">
