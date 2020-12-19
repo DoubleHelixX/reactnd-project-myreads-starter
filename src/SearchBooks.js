@@ -15,72 +15,75 @@ class SearchBooks extends Component {
     
     state = {
 
-        query:{},
-        shelfQue:[]
+        query:[],
+        shelf:[]
+        
     }
+
+
+    // getBookShelf = (id) =>{
+    //     let shelf ='';
+    //     setTimeout(
+    //         BooksAPI.get(id)
+    //         .then((book) => {
+    //         console.log('AAA', book)
+    //         shelf= book;
+    //         }),100000);
+
+    //     console.log('haha', shelf);
+    //     return shelf;
+    // }
 
     searchBooks = (search) => {
-        BooksAPI.search(search)
-        .then((query) => {
-         let shelQue=[];
-         this.setState((currentState) => ({
-            shelQue
-        }))
-        
-          this.setState((currentState) => ({
-            query
-            
-          }))
-        })
-      }
-    // getBook = (id) =>{
-    //     BooksAPI.get(id)
-    //     .then((shelf) => {
-    //         this.setState(() => ({
-    //             shelf
-    //           }))
-    //       })
-    // }
-    componentDidUpdate(prevProps,prevState) {
-        // Typical usage (don't forget to compare props):
-        console.log('current', this.state.query, 'prev', prevState.query)
-        if (this.state.query !== prevState.query) {
-            let empty = [];
-            this.state.query.map((book)=> {
-                BooksAPI.get(book.id)
-                .then((info) => {
-                this.setState((currentState) => ({
-                    shelfQue: currentState.shelfQue.concat(info)
-                  }))
-              })
-        })
-      } 
-    }
-    render() {
-        const {query, shelfQue} = this.state;
-        let getBook = this.getBook;
-
-        let alreadyOnShelf = (id) =>{
-            const {books} = this.props;
-            let check = {
-                'onShelf': false,
-                'shelf' : '',
-                'emptyCast' : ''
-            };
-    
-            books.map((book) => {
-                if (book.id === id){
-                    check.onShelf = true;
-                    check.shelf = book.shelf
-                }
-    
+        if (search.trim().length)
+            BooksAPI.search(search)
+            .then((query) => {
+            this.setState((currentState) => ({
+                query
+                
+            }))
             })
-          return check;
-            
-        };
+            else{
+                let query =[]
+                this.setState(() => ({
+                    query
+                    
+                }))
+            }
+           
+           
         
 
-        console.log('QUERY', query, 'shelfQue' , shelfQue);
+      }
+  
+    render() {
+        const {query} = this.state;
+        const {books} = this.props;
+        let inShelf = {
+            'shelf': [],
+            'id' :[]
+        };
+        books.map((b) =>{ 
+            if (query.length>1)
+            {
+                query.map((book) => {
+                if (b.id ==book.id) {
+                    inShelf.shelf.push(b.shelf); 
+                    inShelf.id.push(b.id);
+                }});
+            }
+            else
+                if (b.id ==query.id) {
+                    inShelf.shelf.push(b.shelf); 
+                    inShelf.id.push(b.id);
+                }
+            
+            });
+            
+        
+
+        console.log('ehh',  query);
+      
         return(
             <div className="search-books">
                         <div className="search-books-bar">
@@ -106,27 +109,49 @@ class SearchBooks extends Component {
                         </div>
                         <div className="search-books-results">
                         <ol className="books-grid">
-                            {Array.isArray(shelfQue) && ( shelfQue.map((book)  =>(
                             
+
+                            {query.length === 1 && ( 
+                                <li key ={query.id}>
+                                    <div className="book">
+                                        <div className="book-top">
+                                        <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${query.hasOwnProperty('imageLinks') ? query.imageLinks.hasOwnProperty('smallThumbnail') ? query.imageLinks.smallThumbnail :  query.imageLinks.hasOwnProperty('thumbnail') ? query.imageLinks.thumbnail: '' : '' })` }}>
+                                        </div> 
+                                        <div className="book-shelf-changer">
+                                            <select defaultValue={ inShelf.id ? inShelf.id.includes(query.id) ? inShelf.shelf[inShelf.id.indexOf(query.id)]: 'none': 'none'}  onChange={(event) => this.props.updateShelf(query, event.target.value) }>
+                                            <option value="move" disabled>Move to...</option>
+                                            <option value="currentlyReading">Currently Reading</option>
+                                            <option value="wantToRead">Want to Read</option>
+                                            <option value="read">Read</option>
+                                            <option value="none">None</option>
+                                            </select>
+                                        </div>
+                                        </div>
+                                        <div className="book-title">  {query.title || "'NO TITLE'"}   </div>
+                                        <div className="book-authors"> {query.authors || "'NO AUTHORS'"}  </div>
+                                    </div>
+                                </li>
+                            )}
+
+                            {query.length > 1 && ( query.map((book)  =>(
                                 <li key ={book.id}>
-                                   {alreadyOnShelf(book.id).emptyCast}
-                                <div className="book">
-                                    <div className="book-top">
-                                    <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${book.imageLinks.thumbnail})` }}>
-                                    </div> 
-                                    <div className="book-shelf-changer">
-                                        <select defaultValue={book.shelf} onChange={(event) => this.props.updateShelf(this.props.updateShelf(book, event.target.value)) }>
-                                        <option value="move" disabled>Move to...</option>
-                                        <option value="currentlyReading">Currently Reading</option>
-                                        <option value="wantToRead">Want to Read</option>
-                                        <option value="read">Read</option>
-                                        <option value="none">None</option>
-                                        </select>
+                                    <div className="book">
+                                        <div className="book-top">
+                                        <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${book.hasOwnProperty('imageLinks') ? book.imageLinks.hasOwnProperty('smallThumbnail') ? book.imageLinks.smallThumbnail :  book.imageLinks.hasOwnProperty('thumbnail') ? book.imageLinks.thumbnail: '' : '' })` }}>
+                                        </div> 
+                                        <div className="book-shelf-changer">
+                                            <select defaultValue={ inShelf.id ? inShelf.id.includes(book.id) ? inShelf.shelf[inShelf.id.indexOf(book.id)]: 'none': 'none'}  onChange={(event) => this.props.updateShelf(book, event.target.value) }>
+                                            <option value="move" disabled>Move to...</option>
+                                            <option value="currentlyReading">Currently Reading</option>
+                                            <option value="wantToRead">Want to Read</option>
+                                            <option value="read">Read</option>
+                                            <option value="none">None</option>
+                                            </select>
+                                        </div>
+                                        </div>
+                                        <div className="book-title">  {book.title || "'NO TITLE'"}   </div>
+                                        <div className="book-authors"> {book.authors || "'NO AUTHORS'"}  </div>
                                     </div>
-                                    </div>
-                                    <div className="book-title">  {book.titles}   </div>
-                                    <div className="book-authors"> {book.authors}  </div>
-                                </div>
                                 </li>
                             )))}
                         </ol>
