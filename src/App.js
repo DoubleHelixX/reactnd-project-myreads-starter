@@ -62,7 +62,7 @@ componentDidUpdate(prevProps,prevState) {
     return (
       <div className="app">
 
-        <Route exact path='/search-books' render={() => (
+        <Route exact path='/search' render={() => (
           <SearchBooks books={this.state.books} updateShelf={(book,shelf) => {
             this.updateShelf(book,shelf)}}   />
          
@@ -90,7 +90,7 @@ componentDidUpdate(prevProps,prevState) {
                 
               </div>
               <div className="open-search">
-              <Link to='/search-books'className="search"><button>Add a book</button></Link>
+              <Link to='/search'className="search"><button>Add a book</button></Link>
 
                 
               </div>
