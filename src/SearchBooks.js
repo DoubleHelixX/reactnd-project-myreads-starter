@@ -112,9 +112,9 @@ class SearchBooks extends Component {
                             
                             <div className = "results"  style={{padding: "5px", display: 'block', width:"100%", textAlign: "center", verticalAlign: "middle", lineHeight: "90px", fontWeight: "bolder"     }}> 
                             <div className = "search-options">
-                                <div class="dropdown">
-                                    <button class="dropbtn">Dropdown</button>
-                                    <div class="dropdown-content">
+                                <div className="dropdown">
+                                    <button className="dropbtn">Filter</button>
+                                    <div className="dropdown-content">
                                         <li onClick= {(event) => this.searchBooks(event.target.innerText ? event.target.innerText : '@_____@')}>Android</li> 
                                         <li onClick= {(event) => this.searchBooks(event.target.innerText ? event.target.innerText : '@_____@')}> Art</li> 
                                         <li onClick= {(event) => this.searchBooks(event.target.innerText ? event.target.innerText : '@_____@')}>Artificial Intelligence</li> 
