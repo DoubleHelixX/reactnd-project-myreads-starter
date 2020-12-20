@@ -34,10 +34,10 @@ class ListReadableBooks extends Component {
                             <div className="book-shelf-changer">
                                 <select defaultValue={book.shelf} onChange={(event) => {this.props.updateShelf(book, event.target.value)}}>
                                 <option value="move" disabled>Move to...</option>
-                                <option value="currentlyReading">Currently Reading</option>
-                                <option value="wantToRead">Want to Read</option>
-                                <option value="read">Read</option>
-                                <option value="none">None</option>
+                                <option value="currentlyReading">{ book.shelf ==='currentlyReading' ? '📚Currently Reading': 'Currently Reading' }</option>
+                                <option value="wantToRead">{ book.shelf ==='wantToRead' ? '📚Want to Read' : 'Want to Read'}</option>
+                                <option value="read">{ book.shelf ==='read' ? '📚Read' : 'Read'}</option>
+                                <option value="none">{ book.shelf === 'none' ? '🥺 None' : 'None'} </option>
                                 </select>
                             </div>
                             </div>
