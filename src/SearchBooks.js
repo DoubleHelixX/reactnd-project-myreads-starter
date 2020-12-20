@@ -59,13 +59,15 @@ class SearchBooks extends Component {
     render() {
         const {query} = this.state;
         const {books} = this.props;
+        let currentShelf= 'none';
         let inShelf = {
-            'shelf': ['tempHolder'],
-            'id' :['tempHolder']
+            'shelf': ['none'],
+            'id' :['none']
         };
         let searchableTerms = ['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS'
     ];
         books.map((b) =>{ 
+           
             if (query.length>1)
             {
                 query.map((book) => {
@@ -82,7 +84,18 @@ class SearchBooks extends Component {
             
             });
             
-        
+        let getShelf = (id) =>{
+
+            currentShelf = inShelf.shelf[inShelf.id.indexOf(id)];
+            return currentShelf;
+        };
+
+              
+        let setShelf = () =>{
+
+            currentShelf = 'none';
+            return currentShelf;
+        };
 
         console.log('ehh',  query);
       
@@ -135,12 +148,12 @@ class SearchBooks extends Component {
                                         <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${query.hasOwnProperty('imageLinks') ? query.imageLinks.hasOwnProperty('smallThumbnail') ? query.imageLinks.smallThumbnail :  query.imageLinks.hasOwnProperty('thumbnail') ? query.imageLinks.thumbnail: '' : '' })` }}>
                                         </div> 
                                         <div className="book-shelf-changer">
-                                            <select defaultValue={inShelf.id.includes(query.id) ? inShelf.shelf[inShelf.id.indexOf(query.id)]: 'none'}  onChange={(event) => this.props.updateShelf(query, event.target.value) }>
-                                            <option value="move" disabled>Move to...</option>
-                                            <option value="currentlyReading">Currently Reading</option>
-                                            <option value="wantToRead">Want to Read</option>
-                                            <option value="read">Read</option>
-                                            <option value="none">None</option>
+                                            <select id = 'book-shelf-selector' defaultValue={inShelf.id.includes(query.id) ? getShelf(query.id): setShelf()}  onChange={(event) => this.props.updateShelf(query, event.target.value) }>
+                                            <option value="move" disabled>  Move to... </option>
+                                            <option value="currentlyReading">{ currentShelf ==='currentlyReading' ? '📚Currently Reading': 'Currently Reading' }</option>
+                                            <option value="wantToRead">{ currentShelf ==='wantToRead' ? '📚Want to Read' : 'Want to Read'}</option>
+                                            <option value="read">{ currentShelf ==='read' ? '📚Read' : 'Read'}</option>
+                                            <option value="none">{ currentShelf === 'none' ? '🥺 None' : 'None'} </option>
                                             </select>
                                         </div>
                                         </div>
@@ -157,12 +170,12 @@ class SearchBooks extends Component {
                                         <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${book.hasOwnProperty('imageLinks') ? book.imageLinks.hasOwnProperty('smallThumbnail') ? book.imageLinks.smallThumbnail :  book.imageLinks.hasOwnProperty('thumbnail') ? book.imageLinks.thumbnail: '' : '' })` }}>
                                         </div> 
                                         <div className="book-shelf-changer">
-                                            <select defaultValue={ inShelf.id.includes(book.id) ? inShelf.shelf[inShelf.id.indexOf(book.id)]: 'none'}  onChange={(event) => this.props.updateShelf(book, event.target.value) }>
+                                            <select defaultValue={ inShelf.id.includes(book.id) ? getShelf(book.id): setShelf()}  onChange={(event) => this.props.updateShelf(book, event.target.value) }>
                                             <option value="move" disabled>Move to...</option>
-                                            <option value="currentlyReading">Currently Reading</option>
-                                            <option value="wantToRead">Want to Read</option>
-                                            <option value="read">Read</option>
-                                            <option value="none">None</option>
+                                            <option value="currentlyReading">{ currentShelf ==='currentlyReading' ? '📚Currently Reading': 'Currently Reading' }</option>
+                                            <option value="wantToRead">{ currentShelf ==='wantToRead' ? '📚Want to Read' : 'Want to Read'}</option>
+                                            <option value="read">{ currentShelf ==='read' ? '📚Read' : 'Read'}</option>
+                                            <option value="none">{ currentShelf === 'none' ? '🥺 None' : 'None'} </option>
                                             </select>
                                         </div>
                                         </div>
