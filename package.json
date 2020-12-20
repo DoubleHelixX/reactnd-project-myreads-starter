@@ -11,8 +11,8 @@
     "react-scripts": "2.1.1"
   },
   "scripts": {
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -b master -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -28,6 +28,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "gh-pages": "^2.0.1"
+    "gh-pages": "^2.2.0"
   }
 }
