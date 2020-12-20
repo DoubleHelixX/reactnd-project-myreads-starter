@@ -1,5 +1,5 @@
 {
-  "homepage": "https://DoubleHelixX.github.io/reactnd-project-myreads-starter/src",
+  "homepage": "https://DoubleHelixX.github.io/reactnd-project-myreads-starter",
   "name": "myreads-app",
   "version": "0.1.0",
   "private": true,
@@ -11,8 +11,8 @@
     "react-scripts": "2.1.1"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
