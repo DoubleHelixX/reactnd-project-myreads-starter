@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/reactnd-project-myreads-starter/static/css/main.8cf26a7d.chunk.css",
+    "main.js": "/reactnd-project-myreads-starter/static/js/main.2a64d1e0.chunk.js",
+    "main.js.map": "/reactnd-project-myreads-starter/static/js/main.2a64d1e0.chunk.js.map",
+    "runtime-main.js": "/reactnd-project-myreads-starter/static/js/runtime-main.b76c7142.js",
+    "runtime-main.js.map": "/reactnd-project-myreads-starter/static/js/runtime-main.b76c7142.js.map",
+    "static/js/2.3080fbae.chunk.js": "/reactnd-project-myreads-starter/static/js/2.3080fbae.chunk.js",
+    "static/js/2.3080fbae.chunk.js.map": "/reactnd-project-myreads-starter/static/js/2.3080fbae.chunk.js.map",
+    "index.html": "/reactnd-project-myreads-starter/index.html",
+    "static/css/main.8cf26a7d.chunk.css.map": "/reactnd-project-myreads-starter/static/css/main.8cf26a7d.chunk.css.map",
+    "static/js/2.3080fbae.chunk.js.LICENSE.txt": "/reactnd-project-myreads-starter/static/js/2.3080fbae.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/reactnd-project-myreads-starter/static/media/arrow-drop-down.4378492a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b76c7142.js",
+    "static/js/2.3080fbae.chunk.js",
+    "static/css/main.8cf26a7d.chunk.css",
+    "static/js/main.2a64d1e0.chunk.js"
+  ]
+}
