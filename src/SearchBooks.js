@@ -153,7 +153,7 @@ class SearchBooks extends Component {
                                             <option value="currentlyReading">{ currentShelf ==='currentlyReading' ? '📚Currently Reading': 'Currently Reading' }</option>
                                             <option value="wantToRead">{ currentShelf ==='wantToRead' ? '📚Want to Read' : 'Want to Read'}</option>
                                             <option value="read">{ currentShelf ==='read' ? '📚Read' : 'Read'}</option>
-                                            <option value="none">{ currentShelf === 'none' ? '🥺 None' : 'None'} </option>
+                                            <option value="none">{ currentShelf === 'none' ? '🥺None' : 'None'} </option>
                                             </select>
                                         </div>
                                         </div>
